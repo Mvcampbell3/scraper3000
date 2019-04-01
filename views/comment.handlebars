@@ -2,6 +2,7 @@
 <script src="/assets/js/comment.js"></script>
 
 <h2>{{article.title}}</h2>
+<p>{{article.summary}}</p>
 <a href="/articles">Back</a>
 
 
@@ -25,6 +26,10 @@
         <div class="form-group">
           <label for="formGroupExampleInput">Message</label>
           <input type="text" class="form-control" id="commentMessage" placeholder="Message">
+        </div>
+        <div class="form-group">
+          <label for="formGroupExampleInput">Message</label>
+          <input type="text" class="form-control" id="commentUser" placeholder="Name">
         </div>
         <button class="btn btn-success subBtn" data-which="{{article._id}}">Submit</button>
       </form>

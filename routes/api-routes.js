@@ -3,37 +3,75 @@ const cheerio = require("cheerio");
 const db = require("../models")
 
 module.exports = function(app) {
+  // app.get("/scrape", (req, res) => {
+
+  //   axios.get("https://www.newscientist.com/subject/space/").then(response => {
+  //     const $ = cheerio.load(response.data);
+
+  //     let num = $("div.card__content").length - 1;
+
+  //     $("div.card__content").each(function(i, one) {
+  //       let result = {};
+
+  //       result.title = $(one).find("h2").text();
+  //       result.link = $(one).find("a").attr("href");
+  //       result.space = true;
+
+  //       db.Article.findOneAndUpdate(
+  //         { title: result.title }, result, { upsert: true, new: true, runValidators: true, setDefaultsOnInsert: true },
+  //         function(err, answer) {
+  //           if (err) {
+  //             console.log(err)
+  //           } else {
+  //             // console.log(answer);
+  //           }
+  //         }
+  //       )
+  //       console.log(i)
+  //       if (i === num) {
+  //         res.redirect("/articles");
+  //       }
+  //     })
+  //   });
+  // });
+
   app.get("/scrape", (req, res) => {
-
-    axios.get("https://www.newscientist.com/subject/space/").then(response => {
+    axios.get("https://www.space.com/news").then(response => {
       const $ = cheerio.load(response.data);
+      let num = $("article.search-result").length - 1;
+      let stories = $("article.search-result");
+      stories.each((i, el) => {
+        let title = $(el).children().find("h3").text();
+        let summary = $(el).children().find("p.synopsis").text();
+        let link = $(el).parent().attr("href");
+        let img = $(el).children().find("img").attr("data-src");
 
-      let num = $("div.card__content").length - 1;
+        let article = {
+          title: title,
+          link: link,
+          summary: summary,
+          space: true,
+          imgUrl: img
+        }
 
-      $("div.card__content").each(function(i, one) {
-        let result = {};
-
-        result.title = $(one).find("h2").text();
-        result.link = $(one).find("a").attr("href");
-        result.space = true;
+        console.log(article);
 
         db.Article.findOneAndUpdate(
-          { title: result.title }, result, { upsert: true, new: true, runValidators: true, setDefaultsOnInsert: true },
+          { title: title }, article, { upsert: true, new: true, runValidators: true, setDefaultsOnInsert: true },
           function(err, answer) {
             if (err) {
               console.log(err)
             } else {
               // console.log(answer);
+              if (i === num) {
+                res.redirect("/articles");
+              }
             }
           }
         )
-        console.log(i)
-        if (i === num) {
-          res.redirect("/articles");
-        }
       })
-    });
-  });
+    })
+  })
 
   app.get("/articles", (req, res) => {
     db.Article.find({}).then(articles => {
@@ -55,18 +93,18 @@ module.exports = function(app) {
     })
   })
 
-  app.post("/comment/:id", (req,res) => {
+  app.post("/comment/:id", (req, res) => {
     let artId = req.params.id;
     let sendObj = {
       message: req.body.message,
       articleId: artId
     }
     db.Comment.create(sendObj).then(dbComment => {
-      return db.Article.findByIdAndUpdate({_id:artId}, {$push: {comments: dbComment._id}}, {new: true})
+      return db.Article.findByIdAndUpdate({ _id: artId }, { $push: { comments: dbComment._id } }, { new: true })
     }).then(dbArticle => {
       res.json(dbArticle)
     }).catch(err => {
-      res.json({error:err})
+      res.json({ error: err })
     })
   })
 

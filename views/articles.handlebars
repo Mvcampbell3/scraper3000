@@ -9,7 +9,7 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav m-auto">
+    <ul class="navbar-nav mr-auto">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
@@ -24,10 +24,7 @@
       </li>
       
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    
   </div>
 </nav>
 
@@ -37,10 +34,12 @@
   {{#each data}}
     {{#if space}}
       <div class="row">
-        <div class="card col-12">
+        <div class="card col-6 m-auto">
+          <img class="card-img-top m-auto" src="{{this.imgUrl}}" alt="Card image cap">
           <div class="card-body">
             <h5 class="card-title">{{this.title}}</h5>
-            <a href="https://www.newscientist.com/subject/space{{this.link}}" target="_blank" class="card-link">Article</a>
+            <p>{{this.summary}}</p>
+            <a href="{{this.link}}" target="_blank" class="card-link">Article</a>
             <a href="/article/{{this._id}}">Comment</a>
             <p>Number of comments: {{this.comments.length}}</p>
           </div>

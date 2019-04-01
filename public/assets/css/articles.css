@@ -1,7 +1,21 @@
+body{
+  background-color: lightblue;
+}
+
 .row{
   margin-bottom: 1em;
 }
 
 .row:nth-child(1){
   margin-top: 1em;
+}
+
+.card img {
+  width: 320px;
+  height: auto;
+}
+
+.card{
+  background-color: black;
+  color: white
 }

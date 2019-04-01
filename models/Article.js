@@ -14,6 +14,18 @@ const ArticleSchema = new Schema({
     required: true
   },
 
+  summary: {
+    type: String,
+    required: true,
+    default: "This article has no summary"
+  },
+
+  imgUrl: {
+    type: String,
+    required: true,
+    default: "There is not img src url"
+  },
+
   comments: [
     {
       type: Schema.Types.ObjectId,
