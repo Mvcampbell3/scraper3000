@@ -12,7 +12,19 @@ const ArticleSchema = new Schema({
   link: {
     type: String,
     required: true
-  }
+  },
+
+  space: {
+    type: Boolean, 
+    required: true,
+    default: false
+  },
+
+  baseball: {
+    type: Boolean,
+    required: true,
+    default: false
+  } 
 
 });
 
