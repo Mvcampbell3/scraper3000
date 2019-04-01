@@ -9,6 +9,10 @@ const CommentSchema = new Schema({
     required: true
   },
 
+  articleId: {
+    type: String,
+    required: true
+  }
   
 })
 

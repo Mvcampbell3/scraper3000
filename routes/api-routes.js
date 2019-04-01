@@ -55,4 +55,19 @@ module.exports = function(app) {
     })
   })
 
+  app.post("/comment/:id", (req,res) => {
+    let artId = req.params.id;
+    let sendObj = {
+      message: req.body.message,
+      articleId: artId
+    }
+    db.Comment.create(sendObj).then(dbComment => {
+      return db.Article.findByIdAndUpdate({_id:artId}, {$push: {comments: dbComment._id}}, {new: true})
+    }).then(dbArticle => {
+      res.json(dbArticle)
+    }).catch(err => {
+      res.json({error:err})
+    })
+  })
+
 }

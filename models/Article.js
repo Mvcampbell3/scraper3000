@@ -14,6 +14,13 @@ const ArticleSchema = new Schema({
     required: true
   },
 
+  comments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Comment"
+    }
+  ],
+
   space: {
     type: Boolean, 
     required: true,

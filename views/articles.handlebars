@@ -26,7 +26,7 @@
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
     </form>
   </div>
 </nav>
@@ -41,6 +41,8 @@
           <div class="card-body">
             <h5 class="card-title">{{this.title}}</h5>
             <a href="https://www.newscientist.com/subject/space{{this.link}}" target="_blank" class="card-link">Article</a>
+            <a href="/article/{{this._id}}">Comment</a>
+            <p>Number of comments: {{this.comments.length}}</p>
           </div>
         </div>
       </div>
