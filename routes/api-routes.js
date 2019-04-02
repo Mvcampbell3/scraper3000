@@ -3,37 +3,6 @@ const cheerio = require("cheerio");
 const db = require("../models")
 
 module.exports = function(app) {
-  // app.get("/scrape", (req, res) => {
-
-  //   axios.get("https://www.newscientist.com/subject/space/").then(response => {
-  //     const $ = cheerio.load(response.data);
-
-  //     let num = $("div.card__content").length - 1;
-
-  //     $("div.card__content").each(function(i, one) {
-  //       let result = {};
-
-  //       result.title = $(one).find("h2").text();
-  //       result.link = $(one).find("a").attr("href");
-  //       result.space = true;
-
-  //       db.Article.findOneAndUpdate(
-  //         { title: result.title }, result, { upsert: true, new: true, runValidators: true, setDefaultsOnInsert: true },
-  //         function(err, answer) {
-  //           if (err) {
-  //             console.log(err)
-  //           } else {
-  //             // console.log(answer);
-  //           }
-  //         }
-  //       )
-  //       console.log(i)
-  //       if (i === num) {
-  //         res.redirect("/articles");
-  //       }
-  //     })
-  //   });
-  // });
 
   app.get("/scrape", (req, res) => {
     axios.get("https://www.space.com/news").then(response => {

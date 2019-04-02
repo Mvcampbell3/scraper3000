@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="/assets/css/articles.css">
 <script src="/assets/js/articles.js"></script>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="/">Space Scrape</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,13 +34,13 @@
   {{#each data}}
     {{#if space}}
       <div class="row">
-        <div class="card col-6 m-auto">
+        <div class="card col-8 m-auto">
           <img class="card-img-top m-auto" src="{{this.imgUrl}}" alt="Card image cap">
           <div class="card-body">
             <h5 class="card-title">{{this.title}}</h5>
             <p>{{this.summary}}</p>
-            <a href="{{this.link}}" target="_blank" class="card-link">Article</a>
-            <a href="/article/{{this._id}}">Comment</a>
+            <a class="btn btn-outline-success" href="{{this.link}}" target="_blank" class="card-link">Article</a>
+            <a class="btn btn-outline-success" href="/article/{{this._id}}">Comment</a>
             <p>Number of comments: {{this.comments.length}}</p>
           </div>
         </div>

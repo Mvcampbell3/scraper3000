@@ -13,7 +13,6 @@ app.set("view engine", "handlebars");
 
 app.use(express.static("public"))
 
-
 require("./routes/html-routes")(app);
 require("./routes/api-routes")(app);
 
