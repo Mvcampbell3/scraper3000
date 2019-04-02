@@ -8,7 +8,6 @@ module.exports = function(app) {
   app.get("/article/:id", (req,res) => {
     let id = req.params.id;
     db.Article.findById(id).populate("comments").then(dbArticle => {
-      console.log(dbArticle)
       res.render("comment", {article:dbArticle})
     })
   })

@@ -34,7 +34,7 @@ const ArticleSchema = new Schema({
   ],
 
   space: {
-    type: Boolean, 
+    type: Boolean,
     required: true,
     default: false
   },
@@ -43,9 +43,13 @@ const ArticleSchema = new Schema({
     type: Boolean,
     required: true,
     default: false
-  } 
+  }
 
 });
+
+ArticleSchema.pre("remove", function() {
+  console.log("removing");
+})
 
 const Article = mongoose.model("Article", ArticleSchema);
 

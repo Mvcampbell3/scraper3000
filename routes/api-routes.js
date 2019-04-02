@@ -9,7 +9,11 @@ module.exports = function(app) {
       const $ = cheerio.load(response.data);
       let num = $("article.search-result").length - 1;
       let stories = $("article.search-result");
+
+      let promiseArry = [];
+
       stories.each((i, el) => {
+
         let title = $(el).children().find("h3").text();
         let summary = $(el).children().find("p.synopsis").text();
         let link = $(el).parent().attr("href");
@@ -25,7 +29,7 @@ module.exports = function(app) {
 
         console.log(article);
 
-        db.Article.findOneAndUpdate(
+        promiseArry.push(db.Article.findOneAndUpdate(
           { title: title }, article, { upsert: true, new: true, runValidators: true, setDefaultsOnInsert: true },
           function(err, answer) {
             if (err) {
@@ -33,12 +37,22 @@ module.exports = function(app) {
             } else {
               // console.log(answer);
               if (i === num) {
-                res.redirect("/articles");
+                console.log("finished");
               }
             }
           }
-        )
+        ));
+
+      });
+
+      Promise.all(promiseArry).then(promiseResult => {
+        console.log(promiseResult);
+        res.redirect("/articles");
+      }).catch(promiseError => {
+        console.log(promiseError)
+        res.json({ error: promiseError })
       })
+
     })
   })
 
@@ -54,7 +68,7 @@ module.exports = function(app) {
   })
 
   app.get("/removeArticles", (req, res) => {
-    db.Article.remove({}).then(result => {
+    db.Article.deleteMany({}).then(result => {
       res.redirect("/")
     }).catch(err => {
       console.log(err);
@@ -64,16 +78,48 @@ module.exports = function(app) {
 
   app.post("/comment/:id", (req, res) => {
     let artId = req.params.id;
+
     let sendObj = {
       message: req.body.message,
+      username: req.body.username,
       articleId: artId
     }
+
     db.Comment.create(sendObj).then(dbComment => {
       return db.Article.findByIdAndUpdate({ _id: artId }, { $push: { comments: dbComment._id } }, { new: true })
     }).then(dbArticle => {
+      console.log("sent comment to database " + sendObj)
       res.json(dbArticle)
     }).catch(err => {
       res.json({ error: err })
+    })
+  })
+
+  app.delete("/article/:id", (req, res) => {
+    // Wanted to use hooks but findOneAndUpdate does not set hooks
+    let deleteId = req.params.id
+    db.Comment.deleteMany({ articleId: deleteId }).then(result => {
+      console.log(result);
+      db.Article.deleteOne({ _id: deleteId }).then(deleted => {
+        console.log(deleted);
+        res.json({ delete: deleted });
+      }).catch(err => {
+        res.json({ error: err })
+      })
+    }).catch(err => {
+      res.json({ error: err });
+    })
+  })
+
+  app.delete("/comment/:id", (req, res) => {
+    let commentId = req.params.id;
+    db.Comment.findOne({_id: commentId}).then(result => {
+      res.json({deleted: result})
+      result.remove().then().catch(err => {
+        console.log(err);
+      });
+    }).catch(err => {
+      res.json({error: err})
     })
   })
 
