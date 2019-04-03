@@ -1,12 +1,26 @@
 <link rel="stylesheet" href="/assets/css/comment.css">
 <script src="/assets/js/comment.js"></script>
 
-
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #111;">
+  <a class="navbar-brand" href="/">Space Articles</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollape"
+    aria-controls="navbarCollape" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollape">
+    <ul class="nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Back</a>
+      </li>
+      
+    </ul>
+  </div>
+</nav>
 
 <div class="container">
   <div class="row">
     <div class="col-2"></div>
-    <div class="col-8">
+    <div class="col-8 place">
       <img src="{{article.imgUrl}}" alt="">
       <h2>{{article.title}}</h2>
       <p>{{article.summary}}</p>
@@ -15,7 +29,12 @@
   </div>
   <div class="row">
     <div class="col-2 empty"></div>
-    <div class="col-8 comments">
+    <div class="col-8 comments place">
+      <div class="row">
+        <div class="col-12">
+          <h2>Comment Section</h2>
+        </div>
+      </div>
       {{#each article.comments}}
       <div class="row comm">
         <div class="col-12">
@@ -28,7 +47,8 @@
     <div class="col-2 empty"></div>
   </div>
   <div class="row">
-    <div class="col-12">
+    <div class="col-2"></div>
+    <div class="col-8 place">
       <form> 
         <div class="form-group">
           <label for="formGroupExampleInput">Message</label>
@@ -42,6 +62,7 @@
         <a href="/" class="btn btn-info">Back</a>
       </form>
     </div>
+    <div class="col-2"></div>
   </div>
 
 </div>

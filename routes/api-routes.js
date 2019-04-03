@@ -8,6 +8,7 @@ module.exports = function(app) {
     axios.get("https://www.space.com/news").then(response => {
       const $ = cheerio.load(response.data);
       let num = $("article.search-result").length - 1;
+
       let stories = $("article.search-result");
 
       let promiseArry = [];
@@ -17,19 +18,21 @@ module.exports = function(app) {
         let title = $(el).children().find("h3").text();
         let summary = $(el).children().find("p.synopsis").text();
         let link = $(el).parent().attr("href");
-        let img = $(el).children().find("img").attr("data-src");
-        // let img = $(el).children().find("img").attr("data-srcset");
+        // let img = $(el).children().find("img").attr("data-src");
+        let img = $(el).children().find("img").attr("data-srcset");
 
-        // let imgSplit = img.split(", ")
+        let imgSplit = img.split(", ")
+        let rightArr = imgSplit[2];
+        let soon = rightArr.toString().split(" ");
 
         let article = {
           title: title,
           link: link,
           summary: summary,
           space: true,
-          imgUrl: img,
-          // imgUrl: imgSplit[2].split()
+          imgUrl: soon[0].toString()
         }
+
 
         console.log(article);
 
@@ -46,6 +49,7 @@ module.exports = function(app) {
             }
           }
         ));
+        
 
       });
 
