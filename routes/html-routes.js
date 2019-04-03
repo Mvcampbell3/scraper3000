@@ -2,7 +2,12 @@ const db = require("../models")
 
 module.exports = function(app) {
   app.get("/", (req,res) => {
-    res.render("index");
+    db.Article.find({}).then(result => {
+      res.render("index", {data: result});
+
+    }).catch(err => {
+      res.json({error: err});
+    })
   })
 
   app.get("/article/:id", (req,res) => {

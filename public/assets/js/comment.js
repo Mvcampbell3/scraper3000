@@ -31,6 +31,7 @@ $(function(){
       type: "DELETE"
     }).then(result => {
       console.log(result);
+      location.reload();
     })
   })
 })

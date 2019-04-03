@@ -23,7 +23,7 @@ const ArticleSchema = new Schema({
   imgUrl: {
     type: String,
     required: true,
-    default: "There is not img src url"
+    default: "There is nothing to see here"
   },
 
   comments: [

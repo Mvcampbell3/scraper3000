@@ -18,13 +18,17 @@ module.exports = function(app) {
         let summary = $(el).children().find("p.synopsis").text();
         let link = $(el).parent().attr("href");
         let img = $(el).children().find("img").attr("data-src");
+        // let img = $(el).children().find("img").attr("data-srcset");
+
+        // let imgSplit = img.split(", ")
 
         let article = {
           title: title,
           link: link,
           summary: summary,
           space: true,
-          imgUrl: img
+          imgUrl: img,
+          // imgUrl: imgSplit[2].split()
         }
 
         console.log(article);
@@ -47,23 +51,12 @@ module.exports = function(app) {
 
       Promise.all(promiseArry).then(promiseResult => {
         console.log(promiseResult);
-        res.redirect("/articles");
+        res.redirect("/");
       }).catch(promiseError => {
         console.log(promiseError)
         res.json({ error: promiseError })
       })
 
-    })
-  })
-
-  app.get("/articles", (req, res) => {
-    db.Article.find({}).then(articles => {
-      res.render("articles", { data: articles })
-    }).catch(err => {
-      if (err) {
-        console.log(err);
-        res.json({ error: err })
-      }
     })
   })
 
@@ -113,13 +106,13 @@ module.exports = function(app) {
 
   app.delete("/comment/:id", (req, res) => {
     let commentId = req.params.id;
-    db.Comment.findOne({_id: commentId}).then(result => {
-      res.json({deleted: result})
+    db.Comment.findOne({ _id: commentId }).then(result => {
+      res.json({ deleted: result })
       result.remove().then().catch(err => {
         console.log(err);
       });
     }).catch(err => {
-      res.json({error: err})
+      res.json({ error: err })
     })
   })
 

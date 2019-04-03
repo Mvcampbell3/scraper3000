@@ -3,7 +3,9 @@
 }
 
 body{
-  background-color: lightblue;
+  background: url("../images/background.jpg");
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 .row{
@@ -22,9 +24,11 @@ body{
 .card{
   background-color: #eee;
   padding: 10px;
+  border-radius: 20px;
 }
 
 .card-body{
   background-color: #ccc;
   margin-top: .5em;
+  border-radius: 20px
 }
