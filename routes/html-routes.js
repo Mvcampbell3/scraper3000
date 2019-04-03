@@ -2,7 +2,7 @@ const db = require("../models")
 
 module.exports = function(app) {
   app.get("/", (req,res) => {
-    db.Article.find({}).then(result => {
+    db.Article.find({}).sort({createdAt: -1}).then(result => {
       res.render("index", {data: result});
 
     }).catch(err => {

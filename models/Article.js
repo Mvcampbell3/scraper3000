@@ -43,6 +43,12 @@ const ArticleSchema = new Schema({
     type: Boolean,
     required: true,
     default: false
+  },
+
+  createdAt: {
+    type: Date,
+    required: true,
+    default: Date.now
   }
 
 });

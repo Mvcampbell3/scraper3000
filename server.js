@@ -16,7 +16,7 @@ app.use(express.static("public"))
 require("./routes/html-routes")(app);
 require("./routes/api-routes")(app);
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scrapper3000";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scraper3000";
 
 mongoose.connect(MONGODB_URI);
 
