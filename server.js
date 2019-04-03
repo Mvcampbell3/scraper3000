@@ -16,7 +16,9 @@ app.use(express.static("public"))
 require("./routes/html-routes")(app);
 require("./routes/api-routes")(app);
 
-mongoose.connect("mongodb://localhost/scraper3000", { useNewUrlParser: true });
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scrapper3000";
+
+mongoose.connect(MONGODB_URI);
 
 app.listen(PORT, () => {
   console.log("live at http://localhost:"+PORT)
