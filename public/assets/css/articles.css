@@ -35,16 +35,27 @@ nav h2{
 .card img {
   width: 90%;
   height: auto;
+  border-radius: 20px;
+  border: 1px black solid;
+
 }
 
 .card{
   background-color: #eee;
   padding: 10px;
   border-radius: 20px;
+  border: .5px black solid;
+
 }
 
 .card-body{
   background-color: #ccc;
   margin-top: .5em;
-  border-radius: 20px
+  border-radius: 20px;
+  border: .5px black solid;
+}
+
+.numCom{
+  margin-top: .5em;
+  font-style: italic;
 }

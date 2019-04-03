@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="/assets/css/comment.css">
 <script src="/assets/js/comment.js"></script>
 
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #111;">
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #111;">
   <a class="navbar-brand" href="/">Space Articles</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollape"
     aria-controls="navbarCollape" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,57 +12,66 @@
       <li class="nav-item">
         <a class="nav-link" href="/">Back</a>
       </li>
-      
+      <li class="nav-item">
+        <a class="nav-link" href="#top">Top</a>
+      </li>
+
     </ul>
   </div>
 </nav>
 
-<div class="container">
+<div id="top" class="container padding-top">
   <div class="row">
-    <div class="col-2"></div>
-    <div class="col-8 place">
+    <div class="col-1"></div>
+    <div class="col-10 place">
       <img src="{{article.imgUrl}}" alt="">
       <h2>{{article.title}}</h2>
       <p>{{article.summary}}</p>
     </div>
-    <div class="col-2"></div>
+    <div class="col-1"></div>
   </div>
   <div class="row">
-    <div class="col-2 empty"></div>
-    <div class="col-8 comments place">
+    <div class="col-1 empty"></div>
+    <div class="col-10 comments place">
       <div class="row">
         <div class="col-12">
-          <h2>Comment Section</h2>
+          <h2 class="text-underline text-center">Comment Section</h2>
         </div>
       </div>
       {{#each article.comments}}
-      <div class="row comm">
-        <div class="col-12">
-          <p>{{this.message}}</p>
-          <button class="btn btn-danger delBtn" data-id="{{this._id}}">Delete</button>
+      <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+          <div class="row back">
+            <div class="col-12 comm">
+              <button class="btn btn-danger delBtn" data-id="{{this._id}}">Delete</button>
+              <p class="inline-me"><span class="username">{{this.username}}:</span> {{this.message}}</p>
+            </div>
+          </div>
         </div>
+        <div class="col-1"></div>
+
       </div>
       {{/each}}
     </div>
-    <div class="col-2 empty"></div>
+    <div class="col-1 empty"></div>
   </div>
-  <div class="row">
-    <div class="col-2"></div>
-    <div class="col-8 place">
-      <form> 
+  <div class="row bottom-padding">
+    <div class="col-1"></div>
+    <div class="col-10 place">
+      <form>
         <div class="form-group">
           <label for="formGroupExampleInput">Message</label>
-          <input autocomplete="off" type="text" class="form-control" id="commentMessage" placeholder="Message">
+          <textarea class="form-control" name="message" id="commentMessage" placeholder="Message"></textarea>
         </div>
         <div class="form-group">
           <label for="formGroupExampleInput">Username</label>
           <input type="text" class="form-control" id="commentUsername" placeholder="Username">
         </div>
         <button class="btn btn-success subBtn" data-which="{{article._id}}">Submit</button><br>
-        <a href="/" class="btn btn-info">Back</a>
       </form>
     </div>
-    <div class="col-2"></div>
+    <div class="col-1"></div>
   </div>
 
 </div>

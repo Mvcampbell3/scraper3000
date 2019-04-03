@@ -18,7 +18,6 @@ module.exports = function(app) {
         let title = $(el).children().find("h3").text();
         let summary = $(el).children().find("p.synopsis").text();
         let link = $(el).parent().attr("href");
-        // let img = $(el).children().find("img").attr("data-src");
         let img = $(el).children().find("img").attr("data-srcset");
 
         let imgSplit = img.split(", ")

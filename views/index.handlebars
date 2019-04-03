@@ -34,9 +34,9 @@
       <div class="card-body">
         <h5 class="card-title">{{this.title}}</h5>
         <p>{{this.summary}}</p>
+        <p class="numCom">Number of comments: {{this.comments.length}}</p>
         <a class="btn btn-dark" href="{{this.link}}" target="_blank" class="card-link">Article</a>
         <a class="btn btn-dark" href="/article/{{this._id}}">Comment</a>
-        <p>Number of comments: {{this.comments.length}}</p>
         <button data-id="{{this._id}}" class="btn btn-danger delBtn">Delete</button>
       </div>
     </div>
